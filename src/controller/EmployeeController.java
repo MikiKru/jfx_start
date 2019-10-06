@@ -33,18 +33,40 @@ public class EmployeeController {
     private ComboBox<String> txtPossion;
     @FXML
     private TextField txtSalary;
+
+    private boolean validInputData(){
+        if(!txtName.getText().equals("") &&
+                !txtLastname.getText().equals("") &&
+                !txtSalary.getText().equals("") &&
+                txtPossion.getValue() != null){
+            try{
+                // próba konwersji na double
+                System.out.println(Double.valueOf(txtSalary.getText()));
+                System.out.println("OK");
+                return true;
+            }catch (NumberFormatException e){
+                System.out.println("Błąd konwersji");
+                return false;
+            }
+        } else {
+            System.out.println("N-OK");
+            return false;
+        }
+    }
     @FXML
     void saveAction(ActionEvent event) {
-        // utworzenie obiektu
-        Employee employee = new Employee(
-                txtName.getText(),
-                txtLastname.getText(),
-                txtPossion.getValue(),
-                Double.valueOf(txtSalary.getText()));
-        // dodanie obiektu do kolekcji FXCollection
-        employees.add(employee);
-        // aktualizujemy zawartość tabeli
-        tblEmpl.setItems(employees);
+        if(validInputData()) {
+            // utworzenie obiektu
+            Employee employee = new Employee(
+                    txtName.getText(),
+                    txtLastname.getText(),
+                    txtPossion.getValue(),
+                    Double.valueOf(txtSalary.getText()));
+            // dodanie obiektu do kolekcji FXCollection
+            employees.add(employee);
+            // aktualizujemy zawartość tabeli
+            tblEmpl.setItems(employees);
+        }
     }
     // Aby dodać zawartość do kontrolek JFX korzystamy z kolekcji pochodzącej z FXCollection
     // Odpowiednik ArrayList klasy JavaCollections
