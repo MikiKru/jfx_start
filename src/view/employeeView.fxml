@@ -17,7 +17,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="tblEmpl" layoutX="14.0" layoutY="79.0" prefHeight="300.0" prefWidth="400.0">
+      <TableView fx:id="tblEmpl" layoutX="14.0" layoutY="79.0" onMouseClicked="#tableClickedAction" prefHeight="300.0" prefWidth="400.0">
         <columns>
           <TableColumn fx:id="cName" prefWidth="100.0" text="IMIĘ" />
           <TableColumn fx:id="cLastname" prefWidth="100.0" text="NAZWISKO" />
@@ -30,6 +30,11 @@
       <ComboBox fx:id="txtPossion" layoutX="441.0" layoutY="155.0" prefHeight="26.0" prefWidth="238.0" promptText="wybierz stanowisko" />
       <TextField fx:id="txtSalary" layoutX="441.0" layoutY="193.0" prefHeight="26.0" prefWidth="238.0" promptText="wprowadź pensję" />
       <Button layoutX="478.0" layoutY="233.0" mnemonicParsing="false" onAction="#saveAction" prefHeight="26.0" prefWidth="164.0" style="-fx-background-color: green;" text="zapisz" textFill="#fafafa">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnDelete" layoutX="478.0" layoutY="274.0" mnemonicParsing="false" onAction="#deleteAction" prefHeight="26.0" prefWidth="164.0" style="-fx-background-color: red;" text="usuń" textFill="#fafafa" visible="false">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

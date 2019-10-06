@@ -6,12 +6,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import model.Employee;
 import util.EmployeeDB;
 
+import java.text.NumberFormat;
 import java.util.Arrays;
 
 public class EmployeeController {
+    @FXML
+    private Button btnDelete;
     @FXML
     private TableView<Employee> tblEmpl;
     @FXML
@@ -102,12 +106,39 @@ public class EmployeeController {
         cLastname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
         cPossition.setCellValueFactory(new PropertyValueFactory<>("possition"));
         cSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+        cSalary.setCellFactory(tc -> new TableCell<Employee, Double>() {
+            @Override
+            protected void updateItem(Double price, boolean empty) {
+                super.updateItem(price, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(currencyFormat.format(price));
+                }
+            }
+        });
         // dodanie danych obiektu ObservableList
         employees.addAll(EmployeeDB.users);
         // dodanie danych do tabeli
         tblEmpl.setItems(employees);
     }
 
-
-
+    @FXML
+    private void deleteAction(ActionEvent actionEvent) {
+        Employee employeeToDelete = tblEmpl.getSelectionModel().getSelectedItem();
+        if (employeeToDelete != null){
+            // usunięcie z listy
+            employees.remove(employeeToDelete);
+            // odświeżenie tabelki
+            tblEmpl.setItems(employees);
+            getAlert(Alert.AlertType.WARNING, "Usunięto pracownika","Usunięto pracownika",
+                    "Ususnięto pracownika: " + employeeToDelete.getName() +" "+employeeToDelete.getLastname());
+        }
+        btnDelete.setVisible(false);
+    }
+    @FXML
+    private void tableClickedAction(MouseEvent mouseEvent) {
+        btnDelete.setVisible(true);
+    }
 }
