@@ -17,14 +17,6 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="tblEmpl" layoutX="14.0" layoutY="79.0" onMouseClicked="#tableClickedAction" prefHeight="300.0" prefWidth="400.0">
-        <columns>
-          <TableColumn fx:id="cName" prefWidth="100.0" text="IMIĘ" />
-          <TableColumn fx:id="cLastname" prefWidth="100.0" text="NAZWISKO" />
-            <TableColumn fx:id="cPossition" prefWidth="100.0" text="STANOWISKO" />
-            <TableColumn fx:id="cSalary" prefWidth="100.0" text="PENSJA" />
-        </columns>
-      </TableView>
       <TextField fx:id="txtName" layoutX="441.0" layoutY="79.0" prefHeight="26.0" prefWidth="238.0" promptText="wpisz imię " />
       <TextField fx:id="txtLastname" layoutX="441.0" layoutY="116.0" prefHeight="26.0" prefWidth="238.0" promptText="wpisz nazwisko" />
       <ComboBox fx:id="txtPossion" layoutX="441.0" layoutY="155.0" prefHeight="26.0" prefWidth="238.0" promptText="wybierz stanowisko" />
@@ -39,5 +31,13 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <TableView fx:id="tblEmpl" layoutX="14.0" layoutY="79.0" onMouseClicked="#tableClickedAction" prefHeight="300.0" prefWidth="400.0">
+        <columns>
+          <TableColumn fx:id="cName" prefWidth="100.0" text="IMIĘ" />
+          <TableColumn fx:id="cLastname" prefWidth="100.0" text="NAZWISKO" />
+            <TableColumn fx:id="cPossition" prefWidth="100.0" text="STANOWISKO" />
+            <TableColumn fx:id="cSalary" prefWidth="100.0" text="PENSJA" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

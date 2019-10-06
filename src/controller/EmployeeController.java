@@ -136,9 +136,10 @@ public class EmployeeController {
                     "Ususnięto pracownika: " + employeeToDelete.getName() +" "+employeeToDelete.getLastname());
         }
         btnDelete.setVisible(false);
+        tblEmpl.getSelectionModel().clearSelection();
     }
     @FXML
     private void tableClickedAction(MouseEvent mouseEvent) {
-        btnDelete.setVisible(true);
+            btnDelete.setVisible(true);
     }
 }
