@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Employee;
 import util.EmployeeDB;
@@ -34,6 +31,21 @@ public class EmployeeController {
     @FXML
     private TextField txtSalary;
 
+    private void getAlert(Alert.AlertType alertType, String title, String header, String text){
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(text);
+        // zatrzymanie okna na ekranie
+        alert.showAndWait();
+    }
+
+    public void clearFields(){
+        txtName.clear();
+        txtLastname.clear();
+        txtSalary.clear();
+        txtPossion.setValue(null);
+    }
     private boolean validInputData(){
         if(!txtName.getText().equals("") &&
                 !txtLastname.getText().equals("") &&
@@ -41,15 +53,18 @@ public class EmployeeController {
                 txtPossion.getValue() != null){
             try{
                 // próba konwersji na double
-                System.out.println(Double.valueOf(txtSalary.getText()));
-                System.out.println("OK");
+                Double.valueOf(txtSalary.getText());
+                getAlert(Alert.AlertType.INFORMATION, "Dodano pracownika", "Dodano pracownika",
+                        "Dodano pracownika: " + txtName.getText() + " " + txtLastname.getText());
                 return true;
             }catch (NumberFormatException e){
-                System.out.println("Błąd konwersji");
+                getAlert(Alert.AlertType.ERROR, "Błąd konwersji danych", "Błąd konwersji danych",
+                        "Pensja musi być wprowadzona w formacie XXXXX.XX");
                 return false;
             }
         } else {
-            System.out.println("N-OK");
+            getAlert(Alert.AlertType.ERROR, "Błąd danych", "Błąd danych",
+                    "Wszystkie pola muszą być uzupełnione");
             return false;
         }
     }
@@ -66,6 +81,7 @@ public class EmployeeController {
             employees.add(employee);
             // aktualizujemy zawartość tabeli
             tblEmpl.setItems(employees);
+            clearFields();
         }
     }
     // Aby dodać zawartość do kontrolek JFX korzystamy z kolekcji pochodzącej z FXCollection
