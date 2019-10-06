@@ -8,53 +8,68 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.Employee;
+import util.EmployeeDB;
 
 import java.util.Arrays;
 
 public class EmployeeController {
-
     @FXML
-    private TableView<?> tblEmpl;
-
+    private TableView<Employee> tblEmpl;
     @FXML
-    private TableColumn<?, ?> cName;
-
+    private TableColumn<Employee, String> cName;
     @FXML
-    private TableColumn<?, ?> cLastname;
-
+    private TableColumn<Employee, String> cLastname;
     @FXML
-    private TableColumn<?, ?> cPossition;
-
+    private TableColumn<Employee, String> cPossition;
     @FXML
-    private TableColumn<?, ?> cSalary;
-
+    private TableColumn<Employee, Double> cSalary;
     @FXML
     private TextField txtName;
-
     @FXML
     private TextField txtLastname;
-
     @FXML
     private ComboBox<String> txtPossion;
-
     @FXML
     private TextField txtSalary;
-
     @FXML
     void saveAction(ActionEvent event) {
-
+        // utworzenie obiektu
+        Employee employee = new Employee(
+                txtName.getText(),
+                txtLastname.getText(),
+                txtPossion.getValue(),
+                Double.valueOf(txtSalary.getText()));
+        // dodanie obiektu do kolekcji FXCollection
+        employees.add(employee);
+        // aktualizujemy zawartość tabeli
+        tblEmpl.setItems(employees);
     }
     // Aby dodać zawartość do kontrolek JFX korzystamy z kolekcji pochodzącej z FXCollection
     // Odpowiednik ArrayList klasy JavaCollections
     ObservableList<String> possitions = FXCollections.observableArrayList(
             Arrays.asList("DEVELOPER","DEV OPS", "ANALYST", "SCRUM MASTER")
     );
+    // List obiektów dodawanych do tabeli
+    ObservableList<Employee> employees = FXCollections.observableArrayList();
 
     // metoda initialize wykonywana jest automatycznie przy utworzeniu widoku
     public void initialize(){
         // dodaje stanowiska do listy rozwijanej
         txtPossion.setItems(possitions);
+        // konfiguracja kolumn w tabeli
+        //nazwaKolumny.setCellValueFactory(new PropertyValueFactory<>("nazwaPolaObiektuTabeli"));
+        cName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        cLastname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+        cPossition.setCellValueFactory(new PropertyValueFactory<>("possition"));
+        cSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+        // dodanie danych obiektu ObservableList
+        employees.addAll(EmployeeDB.users);
+        // dodanie danych do tabeli
+        tblEmpl.setItems(employees);
     }
+
 
 
 }
